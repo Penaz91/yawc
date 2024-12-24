@@ -26,6 +26,8 @@ class CommandSetter(BaseSetter):
         for monitor in monitors:
             if config:
                 background = config[monitor["index"]]
+                if background is None:
+                    return
             else:
                 background = None
             compiled_command = command.format_map(
