@@ -10,6 +10,7 @@ Created on: 2024-12-24
 Author: Penaz
 """
 import tomllib
+from os.path import dirname, join
 from wallpaper_setters.meta import WallpaperSettersRegistry
 from monitor_detectors.meta import MonitorDetectorsRegistry
 from wallpaper_downloaders.meta import WallpaperDownloadersRegistry
@@ -25,7 +26,7 @@ class WallpaperSetter:
         Parses the configuration file and initializes
         """
         # Parse the config
-        with open("config.toml", "rb") as fh:
+        with open(join(dirname(__file__), "config.toml"), "rb") as fh:
             self.config = tomllib.load(fh)
         # Load the screen detector
         detector_registry = MonitorDetectorsRegistry.get_registry()
