@@ -22,7 +22,7 @@ class WallHavenDownloader(BaseDownloader):
     """
     def __init__(self, *args):
         super().__init__(*args)
-        self.url = "https://wallhaven.cc/api/v1/search?apikey={api_key}&q={query}&categories={categories}&purity={purity}&sorting={sorting}&topRange={top_range}&ratios={ratio}&atleast={resolution}&page={page}"
+        self.url = "https://wallhaven.cc/api/v1/search?apikey={api_key}&q={query}&categories={categories}&purity={purity}&sorting={sorting}&topRange={top_range}&atleast={resolution}&page={page}"
 
     def download_wallpapers(self, monitors):
         wallpaper_config = {}
@@ -34,10 +34,6 @@ class WallHavenDownloader(BaseDownloader):
         """
         Downloads a single wallpaper for a certain monitor
         """
-        ratio_tuple = self.get_ratio(
-            monitor["width"], monitor["height"]
-        )
-        ratio = f"{ratio_tuple[0]}x{ratio_tuple[1]}"
         page = random.randint(
             1,
             self.config["downloader"]["WallHaven"].get(
@@ -47,7 +43,6 @@ class WallHavenDownloader(BaseDownloader):
         url = self.url.format_map(
             {
                 **self.config["downloader"]["WallHaven"],
-                "ratio": ratio,
                 "resolution": f"{monitor['width']}x{monitor['height']}",
                 "page": page,
             }
@@ -80,14 +75,3 @@ class WallHavenDownloader(BaseDownloader):
                 with open(save_path, "wb") as fh:
                     fh.write(response.read())
             return save_path
-
-    def get_ratio(self, width, height):
-        if width == height:
-            return (1, 1)
-        if width < height:
-            width, height = height, width
-        divisor = self.gcd(width, height)
-        return (int(width / divisor), int(height / divisor))
-
-    def gcd(self, a, b):
-        return a if b == 0 else self.gcd(b, a % b)
