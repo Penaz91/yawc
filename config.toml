@@ -1,0 +1,8 @@
+[general]
+monitor_detector="XlibDetector"
+wallpaper_setter="CommandSetter"
+wallpaper_downloader="DummyDownloader"
+wallpaper_folder="/home/penaz/Multimedia/Immagini/Backgrounds/"
+
+[setter.CommandSetter]
+command = "nitrogen --set-scaled --random {folder} --head={monitor}"
