@@ -2,7 +2,18 @@
 monitor_detector="XlibDetector"
 wallpaper_setter="CommandSetter"
 wallpaper_downloader="DummyDownloader"
+#wallpaper_downloader="WallHavenDownloader"
 wallpaper_folder="/home/penaz/Multimedia/Immagini/Backgrounds/"
 
 [setter.CommandSetter]
-command = "nitrogen --set-scaled --random {folder} --head={monitor}"
+command = "nitrogen --set-zoom-fill --random {folder} --head={monitor}"
+#command = "nitrogen --set-scaled {background} --head={monitor}"
+
+# [downloader.WallHaven]
+# api_key = ""
+# purity = 100
+# sorting = "toplist"
+# top_range = "3M"
+# categories = 100
+# query = ""
+# max_pages = 5

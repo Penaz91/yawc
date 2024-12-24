@@ -9,8 +9,10 @@ Created on: 2024-12-24
 Author: Penaz
 """
 from .dummy import DummyDownloader
+from .wallhaven import WallHavenDownloader
 
 
 __all__ = (
     "DummyDownloader",
+    "WallHavenDownloader",
 )

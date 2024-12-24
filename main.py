@@ -40,7 +40,7 @@ class WallpaperSetter:
         downloader_name = self.config["general"]["wallpaper_downloader"]
         if downloader_name not in downloader_registry:
             raise RuntimeError(
-                f"Monitor Detector {downloader_name} not registered"
+                f"Wallpaper Downloader {downloader_name} not registered"
             )
         self.downloader_instance = downloader_registry[downloader_name](
             self.config
@@ -62,9 +62,7 @@ class WallpaperSetter:
         downloaded_wallpapers = self.downloader_instance.download_wallpapers(
             monitors
         )
-        # TODO: [Penaz] [2024-12-24] Change according to screens detected
         self.setter_instance.set_wallpaper(monitors, downloaded_wallpapers)
-        pass
 
 
 if __name__ == '__main__':

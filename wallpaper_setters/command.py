@@ -24,10 +24,15 @@ class CommandSetter(BaseSetter):
         command = self.config["setter"]["CommandSetter"]["command"]
         folder = self.config["general"]["wallpaper_folder"]
         for monitor in monitors:
+            if config:
+                background = config[monitor["index"]]
+            else:
+                background = None
             compiled_command = command.format_map(
                 {
                     "folder": folder,
-                    "monitor": monitor["index"]
+                    "monitor": monitor["index"],
+                    "background": background
                 }
             )
             exploded_command = compiled_command.split(" ")
