@@ -6,8 +6,8 @@ wallpaper_downloader="DummyDownloader"
 wallpaper_folder="/home/penaz/Multimedia/Immagini/Backgrounds/"
 
 [setter.CommandSetter]
+#command = "nitrogen --set-zoom-fill {background} --head={monitor}"
 command = "nitrogen --set-zoom-fill --random {folder} --head={monitor}"
-#command = "nitrogen --set-scaled {background} --head={monitor}"
 
 # [downloader.WallHaven]
 # api_key = ""
@@ -15,5 +15,5 @@ command = "nitrogen --set-zoom-fill --random {folder} --head={monitor}"
 # sorting = "toplist"
 # top_range = "3M"
 # categories = 100
-# query = ""
+# query = "abstract"
 # max_pages = 5
