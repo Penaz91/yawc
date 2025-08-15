@@ -8,21 +8,29 @@ Created on: 2024-12-24
 
 Author: Penaz
 """
+
 import random
 from json import load
-from urllib import request
-from os.path import join as pjoin
 from os.path import basename
+from os.path import join as pjoin
+from urllib import request
+
 from .base import BaseDownloader
 
 
 class WallHavenDownloader(BaseDownloader):
     """
-    Dummy Downloader, does nothing
+    Downloads wallpapers from wallhaven.cc
     """
+
     def __init__(self, *args):
         super().__init__(*args)
-        self.url = "https://wallhaven.cc/api/v1/search?apikey={api_key}&q={query}&categories={categories}&purity={purity}&sorting={sorting}&topRange={top_range}&atleast={resolution}&page={page}"
+        self.url = (
+            "https://wallhaven.cc/api/v1/search?apikey={api_key}"
+            "&q={query}&categories={categories}&purity={purity}"
+            "&sorting={sorting}&topRange={top_range}&atleast={resolution}"
+            "&page={page}"
+        )
 
     def download_wallpapers(self, monitors):
         wallpaper_config = {}
@@ -35,10 +43,7 @@ class WallHavenDownloader(BaseDownloader):
         Downloads a single wallpaper for a certain monitor
         """
         page = random.randint(
-            1,
-            self.config["downloader"]["WallHaven"].get(
-                "max_pages", 5
-            ) + 1
+            1, self.config["downloader"]["WallHaven"].get("max_pages", 5) + 1
         )
         url = self.url.format_map(
             {
@@ -48,11 +53,7 @@ class WallHavenDownloader(BaseDownloader):
             }
         )
         req = request.Request(
-            url,
-            data=None,
-            headers={
-                "User-Agent": "Penaz's Wallpaper Changer v 0.1"
-            }
+            url, data=None, headers={"User-Agent": "Penaz's Wallpaper Changer v 0.1"}
         )
         with request.urlopen(req) as response:
             # Load the Json Response
@@ -64,13 +65,10 @@ class WallHavenDownloader(BaseDownloader):
             req = request.Request(
                 wallurl,
                 data=None,
-                headers={
-                    "User-Agent": "Penaz's Wallpaper Changer v 0.1"
-                }
+                headers={"User-Agent": "Penaz's Wallpaper Changer v 0.1"},
             )
-            save_path = pjoin(
-                self.config["general"]["wallpaper_folder"], basename(wallurl)
-            )
+            filename = self.config["general"].get("filename", basename(wallurl))
+            save_path = pjoin(self.config["general"]["wallpaper_folder"], filename)
             with request.urlopen(req) as response:
                 with open(save_path, "wb") as fh:
                     fh.write(response.read())
